@@ -1,0 +1,91 @@
+{
+  "shard_count": 3,
+  "total_lines": 500,
+  "status_distribution": {
+    "200": 416,
+    "404": 47,
+    "500": 29,
+    "403": 5,
+    "301": 3
+  },
+  "top_10_ips": [
+    {
+      "ip": "98.64.114.29",
+      "count": 1
+    },
+    {
+      "ip": "98.32.76.162",
+      "count": 1
+    },
+    {
+      "ip": "98.28.153.232",
+      "count": 1
+    },
+    {
+      "ip": "96.222.239.2",
+      "count": 1
+    },
+    {
+      "ip": "94.183.253.114",
+      "count": 1
+    },
+    {
+      "ip": "91.144.16.186",
+      "count": 1
+    },
+    {
+      "ip": "90.88.37.138",
+      "count": 1
+    },
+    {
+      "ip": "90.2.133.6",
+      "count": 1
+    },
+    {
+      "ip": "89.195.128.30",
+      "count": 1
+    },
+    {
+      "ip": "88.26.23.74",
+      "count": 1
+    }
+  ],
+  "top_10_ips_note": "Sadece her shard'in kendi top10'unda gorunen IP'ler birlestirildi; bir shard'da top10'a girmeyen bir IP'nin gercek toplami burada eksik olabilir.",
+  "endpoints": {
+    "/home": {
+      "count": 59,
+      "avg_latency": 0.494
+    },
+    "/login": {
+      "count": 66,
+      "avg_latency": 0.368
+    },
+    "/api/cart": {
+      "count": 65,
+      "avg_latency": 0.386
+    },
+    "/api/users": {
+      "count": 59,
+      "avg_latency": 0.265
+    },
+    "/api/products": {
+      "count": 55,
+      "avg_latency": 0.43
+    },
+    "/static/style.css": {
+      "count": 60,
+      "avg_latency": 0.714
+    },
+    "/api/orders": {
+      "count": 67,
+      "avg_latency": 0.392
+    },
+    "/api/search": {
+      "count": 69,
+      "avg_latency": 0.457
+    }
+  },
+  "hourly_density": {
+    "08": 500
+  }
+}
