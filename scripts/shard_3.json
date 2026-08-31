@@ -1,9 +1,0 @@
-{
-  "shard_index": 3,
-  "shard_total": 5,
-  "total_lines": 100,
-  "status_distribution": {"200": 87,"404": 7,"500": 5,"301": 1},
-  "top_10_ips": [{"ip": "98.28.153.232", "count": 1},{"ip": "96.222.239.2", "count": 1},{"ip": "91.86.14.161", "count": 1},{"ip": "89.195.128.30", "count": 1},{"ip": "86.214.29.204", "count": 1},{"ip": "86.14.217.46", "count": 1},{"ip": "81.219.148.27", "count": 1},{"ip": "81.135.121.111", "count": 1},{"ip": "77.224.11.218", "count": 1},{"ip": "77.185.226.118", "count": 1}],
-  "endpoints": {"/home": {"count": 14, "avg_latency": 0.477},"/login": {"count": 14, "avg_latency": 0.220},"/api/cart": {"count": 14, "avg_latency": 0.229},"/api/users": {"count": 12, "avg_latency": 0.357},"/api/products": {"count": 8, "avg_latency": 0.136},"/static/style.css": {"count": 15, "avg_latency": 0.813},"/api/orders": {"count": 10, "avg_latency": 0.261},"/api/search": {"count": 13, "avg_latency": 0.716}},
-  "hourly_density": {"08": 100}
-}
