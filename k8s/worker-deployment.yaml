@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-worker
+  namespace: log-analysis
+  labels:
+    app: log-worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: log-worker
+  template:
+    metadata:
+      labels:
+        app: log-worker
+    spec:
+      containers:
+        - name: worker
+          image: log-worker:v1
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c", "sleep infinity"]
+          env:
+            - name: SHARD_TOTAL
+              valueFrom:
+                configMapKeyRef:
+                  name: worker-config
+                  key: SHARD_TOTAL
+          volumeMounts:
+            - name: log-data
+              mountPath: /data/logs
+      volumes:
+        - name: log-data
+          persistentVolumeClaim:
+            claimName: log-data-pvc
