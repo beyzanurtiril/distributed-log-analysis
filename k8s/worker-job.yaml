@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: log-worker-job
+  namespace: log-analysis
+spec:
+  completions: 3
+  parallelism: 3
+  completionMode: Indexed
+  backoffLimit: 4
+  template:
+    metadata:
+      labels:
+        app: log-worker-job
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: worker
+          image: log-worker:v1
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c", "mkdir -p /data/logs/job_output && SHARD_INDEX=$JOB_COMPLETION_INDEX SHARD_TOTAL=3 /app/worker.sh /data/logs/ > /data/logs/job_output/shard_${JOB_COMPLETION_INDEX}.json"]
+          volumeMounts:
+            - name: log-data
+              mountPath: /data/logs
+      volumes:
+        - name: log-data
+          persistentVolumeClaim:
+            claimName: log-data-pvc
