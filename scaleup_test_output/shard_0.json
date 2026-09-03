@@ -1,0 +1,11 @@
+sort: write failed: 'standard output': Broken pipe
+sort: write error
+{
+  "shard_index": 0,
+  "shard_total": 2,
+  "total_lines": 150000,
+  "status_distribution": {"200": 127672,"404": 12044,"500": 7322,"301": 1013,"403": 987,"302": 962},
+  "top_10_ips": [{"ip": "34.204.79.213", "count": 2},{"ip": "199.22.248.124", "count": 2},{"ip": "177.232.198.98", "count": 2},{"ip": "99.99.177.120", "count": 1},{"ip": "99.98.43.160", "count": 1},{"ip": "99.98.30.152", "count": 1},{"ip": "99.98.27.71", "count": 1},{"ip": "99.98.226.177", "count": 1},{"ip": "99.98.188.137", "count": 1},{"ip": "99.97.86.158", "count": 1}],
+  "endpoints": {"/home": {"count": 18498, "avg_latency": 0.421},"/login": {"count": 18640, "avg_latency": 0.418},"/api/cart": {"count": 18820, "avg_latency": 0.418},"/api/users": {"count": 18742, "avg_latency": 0.422},"/api/products": {"count": 18796, "avg_latency": 0.423},"/static/style.css": {"count": 18752, "avg_latency": 0.425},"/api/search": {"count": 18925, "avg_latency": 0.412},"/api/orders": {"count": 18827, "avg_latency": 0.404}},
+  "hourly_density": {"00": 4795,"01": 4771,"02": 4857,"03": 4773,"04": 4789,"05": 4840,"06": 4818,"07": 4813,"08": 7855,"09": 7867,"10": 7790,"11": 7764,"12": 7817,"13": 7831,"14": 7776,"15": 6856,"16": 6623,"17": 6611,"18": 6586,"19": 6592,"20": 6560,"21": 6619,"22": 5667,"23": 4730}
+}
