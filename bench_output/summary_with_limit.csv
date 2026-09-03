@@ -1,0 +1,5 @@
+workers,total_time_sec,fastest_worker_sec,slowest_worker_sec,diff_sec
+1,20.178,20.098,20.098,0.000
+2,9.894,9.760,9.790,0.030
+3,7.984,6.635,7.888,1.253
+5,7.034,5.629,6.913,1.284
