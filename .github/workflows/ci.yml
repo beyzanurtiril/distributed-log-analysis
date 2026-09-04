@@ -1,0 +1,120 @@
+name: Build and Push Worker Image
+
+on:
+  push:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Repo'yu checkout et
+        uses: actions/checkout@v4
+
+      - name: GHCR'a giris yap
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Buildx kur
+        uses: docker/setup-buildx-action@v3
+
+      - name: Image build et ve push et
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Trivy ile guvenlik taramasi
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: table
+          exit-code: 0
+
+      - name: Kustomize image tag'ini guncelle
+        run: |
+          cd k8s/base
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          ./kustomize edit set image log-worker:v1=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cd ../..
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add k8s/base/kustomization.yaml
+          git diff --staged --quiet || git commit -m "kustomize image tag guncellendi: ${{ github.sha }}"
+          git push
+EOFcd ~/distributed-log-analysis
+mkdir -p .github/workflows
+
+cat > .github/workflows/ci.yml << 'EOF'
+name: Build and Push Worker Image
+
+on:
+  push:
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Repo'yu checkout et
+        uses: actions/checkout@v4
+
+      - name: GHCR'a giris yap
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker Buildx kur
+        uses: docker/setup-buildx-action@v3
+
+      - name: Image build et ve push et
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+      - name: Trivy ile guvenlik taramasi
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: table
+          exit-code: 0
+
+      - name: Kustomize image tag'ini guncelle
+        run: |
+          cd k8s/base
+          curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
+          ./kustomize edit set image log-worker:v1=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          cd ../..
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add k8s/base/kustomization.yaml
+          git diff --staged --quiet || git commit -m "kustomize image tag guncellendi: ${{ github.sha }}"
+          git push
