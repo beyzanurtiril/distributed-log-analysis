@@ -8,4 +8,4 @@ resources:
 images:
 - name: log-worker:v1
   newName: ghcr.io/beyzanurtiril/distributed-log-analysis
-  newTag: 52057549232d80d40c8913f9e031eb1971b9646e
+  newTag: 4494e2453870737f08fd0cae9c36c4f9f71a29cc
